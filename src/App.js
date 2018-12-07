@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 class App extends Component {
   render() {
     return (
-     <User username={this.props.user.name}/>
-     <button onClick={()=>{}}> changeName</button>
+      <div>
+        <User username={this.props.user.name}/>
+        <button onClick={()=>{this.props.setName("Apotoxin")}}>changeName</button>
+      </div>
     );
   }
 }
@@ -15,7 +17,7 @@ const mapStateToProps=(state)=>{
     emp:state.emp
   }
 }
-const mapDispatchToProps=()=>{
+const mapDispatchToProps=(dispatch)=>{
   return{
     setName:(name)=>{
       dispatch({
