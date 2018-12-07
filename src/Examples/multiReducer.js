@@ -1,32 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import { Provider } from 'react-redux';
-serviceWorker.unregister();
-
+import { createStore, combineReducers } from "redux";
 const initState = {
     salary: 15000,
     value: []
 }
-const userReducer = (state = { name: 'Kong', age: 15 }, action) => {
+const userReducer = (state={name:'Kong',age:15},action)=>{
     switch (action.type) {
         case 'SET_NAME':
-            state = {
+            state={ 
                 ...state,
-                name: action.payload
+                name:action.payload
             }
-
+            
             break;
         case 'SET_AGE':
-            state = {
+            state={
                 ...state,
-                age: action.payload
+                age:action.payload
             }
             break;
-
+    
         default:
             break;
     }
@@ -56,18 +48,28 @@ const employeeReducer = (state = initState, action) => {
     return state;
 
 }
-const mylogger = (store) => (next) => (action) => {
-    console.log("Log Action : ", action);
-    next(action);
-}
-const store = createStore(combineReducers({emp:employeeReducer, user:userReducer }), {}, applyMiddleware(mylogger));
+const store = createStore(combineReducers({employeeReducer,userReducer}));
 store.subscribe(() => {
     console.log("Update store ", store.getState());
 
 })
-
-ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>
-    , document.getElementById('root'));
+store.dispatch({
+    type: 'ADD',
+    payload: 15000
+});
+store.dispatch({
+    type: 'ADD',
+    payload: 15000
+});
+store.dispatch({
+    type: 'SUBTRACT',
+    payload: 10000
+});
+store.dispatch({
+    type: 'SET_NAME',
+    payload: "Apo"
+});
+store.dispatch({
+    type: 'SET_AGE',
+    payload: 20
+});
